@@ -67,15 +67,49 @@ describe("Four: queues of multiple people per floor all going up only") do
     expect(lift_sequence([[],[],[4,4],[],[],[]],10)).to eq ([0,2,4,0])
   end
 
-  it("13 - 6 floors with 2 person queue in on one level going to diff floor")do
+  it("14 - 6 floors with 2 person queue in on one level going to diff floor")do
     expect(lift_sequence([[],[],[4,5],[],[],[]],10)).to eq ([0,2,4,5,0])
+  end
+
+  it("15 - 6 floors with 4 persons in on 2 levels going to diff floor")do
+    expect(lift_sequence([[],[2,3],[4,5],[],[],[]],10)).to eq ([0,1,2,3,4,5,0])
+  end
+
+  it("16 - 6 floors with 5 persons in on 2 levels going to diff floor")do
+    expect(lift_sequence([[],[2,3,5],[4,5],[],[],[]],10)).to eq ([0,1,2,3,4,5,0])
   end
 end
 
+describe("five - queues of multiple people per floor all going down only") do
+  it("17 - 6 floors with 2 person queue in one level going to the same floor") do
+    expect(lift_sequence([[],[],[],[],[],[2,2]],10)).to eq ([0,5,2,0])
+  end
+  it("18 - 6 floors with 2 persons on one floor going to 2 levels") do
+    expect(lift_sequence([[],[],[],[],[1,2],[]],10)).to eq ([0,4,2,1,0])
+  end
+  it("19 - 6 floors with 4 persons on 2 floors going to diff levels") do
+    expect(lift_sequence([[],[],[],[],[1,2],[4,2]],10)).to eq ([0,5,4,2,1,0])
+  end
+  it("20 - 6 floors with 5 persons on 2 floors going to diff levels") do
+    expect(lift_sequence([[],[],[],[],[1,1,0],[4,3]],10)).to eq ([0,5,4,3,1,0])
+  end
+end
+
+describe("six - queues of multiple people per floor going both up and down") do
+  it("21 -2 people on same floor, 1 up 1 down") do
+    expect(lift_sequence([[],[],[5,1],[],[],[]],10)).to eq ([0,2,5,2,1,0])
+  end
+  it("22 -4 people on 2 floors, up and down") do
+    expect(lift_sequence([[],[],[5,1],[0,1],[],[]],10)).to eq ([0,2,5,3,2,1,0])
+  end
+  it("23 -multiple people on same floor, some up some down") do
+    expect(lift_sequence([[6],[],[5,1,1,4],[],[],[],[],[4,0]],10)).to eq ([0,2,4,5,6,7,4,2,1,0])
+  end
+end
+
+
 #future test blocks
-#4 more than 1 person per floor going down
-#5 more than 1 person per floor mixed up and down
 #6 over capacity
-#7 smart return to top or bottom
+#7 smart return to top or bottom (check if above floors have waiting if up and below floors if down)
 
 
