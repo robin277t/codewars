@@ -15,19 +15,26 @@ def lift_sequence(queues, capacity)
     #section below is for lift travelling up or down and not at top or bottom
     
     if queues[current_floor].length > 0 #if someone waiting at floor
-      
-      if travel_direction == 'up' && queues[current_floor][0] > current_floor # if someone waiting to go up
-        output.push(current_floor) if current_floor > 0 # add in that we've stopped to pick up
-        stops_requested.push(queues[current_floor][0]).uniq! #add in higher floor to requested stops array
-        queues[current_floor].delete_at(0) # remove this person from queue
-      end
+      #initiate loop through array here to ascertain if can be taken on board
+      passengers_boarded = []
 
-      if travel_direction == 'down' && queues[current_floor][0] < current_floor || current_floor == queues.length-1 #if someone waiting to go down inc at top floor
-        output.push(current_floor) # add in that we've stopped to pick up
-        stops_requested.push(queues[current_floor][0]).uniq! #add in lower floor to requested stops array, doesn't care if a duplicate
-        queues[current_floor].delete_at(0) # remove this person from queue
-      end
+      queues[current_floor].each do |person|  
 
+        if travel_direction == 'up' && person > current_floor # if someone waiting to go up
+          output.push(current_floor) if current_floor > 0 && output[-1] != current_floor # add in that we've stopped to pick up if not already noted
+          stops_requested.push(person) #add in higher floor to requested stops array
+          passengers_boarded.push(person) #add in person who's boarded
+        end
+        
+        if travel_direction == 'down' && person < current_floor || current_floor == queues.length-1 #if someone waiting to go down inc at top floor
+          output.push(current_floor) if output[-1] != current_floor # add in that we've stopped to pick up if not already there
+          stops_requested.push(person) #add in lower floor to requested stops array, TODO remove Uniq as it is not needed
+          # queues[current_floor].delete_at(index) # remove this person from queue
+        end
+
+      end
+      queues[current_floor] = queues[current_floor] - passengers_boarded #remove boarded people from queue
+        
     end
 
     if stops_requested.include?(current_floor) #checks if anyone waiting to get off and that stop 
@@ -41,7 +48,9 @@ def lift_sequence(queues, capacity)
     #   # puts remaining_floors.length
     # end
 
-    if current_floor == queues.length-1 # turn lift down if it has reached the top
+    # print "on floor #{current_floor} is #{queues[current_floor]}  and dir is #{travel_direction}   "
+    # print queues
+    if current_floor == queues.length-1  # turn lift down if it has reached the top
       travel_direction = "down"
     end
     

@@ -67,13 +67,12 @@ describe("Four: queues of multiple people per floor all going up only") do
     expect(lift_sequence([[],[],[4,4],[],[],[]],10)).to eq ([0,2,4,0])
   end
 
-  xit("13 - 6 floors with 2 person queue in on one level going to diff floor")do
+  it("13 - 6 floors with 2 person queue in on one level going to diff floor")do
     expect(lift_sequence([[],[],[4,5],[],[],[]],10)).to eq ([0,2,4,5,0])
   end
 end
 
 #future test blocks
-#3 more than 1 person per floor going up
 #4 more than 1 person per floor going down
 #5 more than 1 person per floor mixed up and down
 #6 over capacity
