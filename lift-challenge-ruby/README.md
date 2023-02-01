@@ -43,14 +43,12 @@ If it was going down then it may continue down to collect the lowest floor perso
 The Lift has a maximum capacity of people
 When called, the Lift will stop at a floor even if it is full, although unless somebody gets off nobody else can get on!
 If the lift is empty, and no people are waiting, then it will return to the ground floor
-
 People Rules
 People are in "queues" that represent their order of arrival to wait for the Lift
 All people can press the UP/DOWN Lift-call buttons
 Only people going the same direction as the Lift may enter it
 Entry is according to the "queue" order, but those unable to enter do not block those behind them that can
 If a person is unable to enter a full Lift, they will press the UP/DOWN Lift-call button again after it has departed without them
-
 Kata Task
 Get all the people to the floors they want to go to while obeying the Lift rules and the People rules
 Return a list of all floors that the Lift stopped at (in the order visited!)
@@ -71,6 +69,5 @@ People wanting to go to floors that do not exist
 People wanting to take the Lift to the floor they are already on
 Buildings with < 2 floors
 Basements
-
 Output
 A list of all floors that the Lift stopped at (in the order visited!)
