@@ -1,12 +1,19 @@
 require_relative "../lift"
 
-# it("Tests") do
-#   # Floors:    G     1      2        3     4      5      6         Answers:
-#   tests = [[ [ [],   [],    [5,5,5], [],   [],    [],    [] ],     [0, 2, 5, 0]          ],
-#            [ [ [],   [],    [1,1],   [],   [],    [],    [] ],     [0, 2, 1, 0]          ],
-#            [ [ [],   [3,],  [4,],    [],   [5,],  [],    [] ],     [0, 1, 2, 3, 4, 5, 0] ],
-#            [ [ [],   [0,],  [],      [],   [2,],  [3,],  [] ],     [0, 5, 4, 3, 2, 1, 0] ]]
-# end
+describe("set tests") do
+  it("set test 1") do
+    expect(lift_sequence([ [],   [],    [5,5,5], [],   [],    [],    [] ],5)).to eq ([0,2,5,0])
+  end
+  it("set test 2") do
+    expect(lift_sequence([ [],   [],    [1,1],   [],   [],    [],    [] ],5)).to eq ([0,2,1,0])
+  end
+  it("set test 3") do
+    expect(lift_sequence([ [],   [3],  [4],    [],   [5],  [],    [] ],5)).to eq ([0,1,2,3,4,5,0])
+  end
+  it("set test 4") do
+    expect(lift_sequence([ [],   [0],  [],      [],   [2],  [3],  [] ],5)).to eq ([0, 5, 4, 3, 2, 1, 0])
+  end
+end
 
 describe("First block: single person queues only going up") do
 
@@ -107,9 +114,29 @@ describe("six - queues of multiple people per floor going both up and down") do
   end
 end
 
+describe("seven - over capacity ") do
+  it("24 - queue of 3 people going dow from same floor, capacity 2") do
+    expect(lift_sequence([[],[],[],[],[],[4,3,2]],2)).to eq ([0,5,4,3,5,2,0])
+  end
+  it("25 - queue of 4 people going dow from same floor, capacity 2") do
+    expect(lift_sequence([[],[],[],[],[],[4,3,2,1]],2)).to eq ([0,5,4,3,5,2,1,0])
+  end
+  it("26 - queue of 4 people going up and down from same floor, capacity 2") do
+    expect(lift_sequence([[],[],[],[4,4,5,2],[],[]],2)).to eq ([0,3,4,3,2,3,5,0])
+  end
+  it("27 - queue of 10 people going up and down from 2 floors, capacity 3") do
+    expect(lift_sequence([[],[],[0,1,6,1,5],[],[5,3,5,6,0],[],[]],3)).to eq ([0,2,4,5,6,4,3,2,1,0,4,5,6,2,1,0])
+  end
+  it("28 - large queue, capacity 1")do
+    expect(lift_sequence([[],[2,3,4,5,6,7,8,9],[],[],[],[],[],[],[],[]],1)).to eq([0,1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9,0])
+  end
+  it("29 - late tests YOYO")do
+    expect(lift_sequence([[], [], [4, 4, 4, 4], [], [2, 2, 2, 2], [], []],2)).to eq ([0,2,4,2,4,2,0])
+  end
+  it("30 - late tests YOYO with floor skip")do
+    expect(lift_sequence([[], [], [4, 4, 4, 4], [1], [2, 2, 2, 2], [], []],2)).to eq ([0,2,4,3,2,4,3,2,3,1,0])
+  end
 
-#future test blocks
-#6 over capacity
-#7 smart return to top or bottom (check if above floors have waiting if up and below floors if down)
+end
 
-
+#and 2 not 'stopping' at floors even when full.
