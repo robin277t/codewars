@@ -71,3 +71,18 @@ Buildings with < 2 floors
 Basements
 Output
 A list of all floors that the Lift stopped at (in the order visited!)
+
+
+Logic order:
+
+1yes. While people are in the queue or are in the lift and not got off, keep lift moving- as a loop 
+
+2yes: Within loop 1st action is remove people in lift at floor if required, and log the stop
+
+3: Within loop 2nd action is to check if anyone waiting to go in that direction, if they are, board queue until empty or capacity, log stop if needed
+
+4: Within loop 3rd action if people waiting but no-one headed further in that direction or needs dropping off/picking up further on, then board people going in the opposite direction and change the direction of lift travel.
+
+5yes: Return to 0 not via loop and log and return the log
+
+UNKNOWN: Does lift stop at floors with people wanting to go the opposite direction? Initial assumption is NO.

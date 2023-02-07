@@ -1,6 +1,6 @@
 require_relative "../lift"
 
-xdescribe("set tests") do
+describe("set tests") do
   it("set test 1") do
     expect(lift_sequence([ [],   [],    [5,5,5], [],   [],    [],    [] ],5)).to eq ([0,2,5,0])
   end
@@ -11,11 +11,11 @@ xdescribe("set tests") do
     expect(lift_sequence([ [],   [3],  [4],    [],   [5],  [],    [] ],5)).to eq ([0,1,2,3,4,5,0])
   end
   it("set test 4") do
-    expect(lift_sequence([ [],   [0],  [],      [],   [2],  [3],  [] ],5)).to eq ([0, 5, 4, 3, 2, 1, 0])
+    expect(lift_sequence([ [],[0],[],[],[2],[3],[] ],5)).to eq ([0, 5, 4, 3, 2, 1, 0])
   end
 end
 
-xdescribe("First block: single person queues only going up") do
+describe("First block: single person queues only going up") do
 
   it"1 - input valid 2 floors no people" do
     expect(lift_sequence([[],[]],5)).to eq ([0])
@@ -43,7 +43,7 @@ xdescribe("First block: single person queues only going up") do
 
 end
 
-xdescribe("Second block: single person queues only going down") do
+describe("Second block: single person queues only going down") do
   it"7 - input valid 3 floors 1 person going down" do
     expect(lift_sequence([[],[],[0]],5)).to eq ([0,2,0])
   end
@@ -57,7 +57,7 @@ xdescribe("Second block: single person queues only going down") do
   end
 end
 
-xdescribe("Three: mixed up and down single person queues within capacity") do
+describe("Three: mixed up and down single person queues within capacity") do
   it"10 - 6 floors with 1 person going up and one person going down no overlap" do
     expect(lift_sequence([[],[2],[],[1],[],[]],10)).to eq ([0,1,2,3,1,0])
   end
@@ -69,7 +69,7 @@ xdescribe("Three: mixed up and down single person queues within capacity") do
   end
 end
 
-xdescribe("Four: queues of multiple people per floor all going up only") do
+describe("Four: queues of multiple people per floor all going up only") do
   it("13 - 6 floors with 2 person queue in on one level going to same floor")do
     expect(lift_sequence([[],[],[4,4],[],[],[]],10)).to eq ([0,2,4,0])
   end
@@ -87,7 +87,7 @@ xdescribe("Four: queues of multiple people per floor all going up only") do
   end
 end
 
-xdescribe("five - queues of multiple people per floor all going down only") do
+describe("five - queues of multiple people per floor all going down only") do
   it("17 - 6 floors with 2 person queue in one level going to the same floor") do
     expect(lift_sequence([[],[],[],[],[],[2,2]],10)).to eq ([0,5,2,0])
   end
@@ -102,7 +102,7 @@ xdescribe("five - queues of multiple people per floor all going down only") do
   end
 end
 
-xdescribe("six - queues of multiple people per floor going both up and down") do
+describe("six - queues of multiple people per floor going both up and down") do
   it("21 -2 people on same floor, 1 up 1 down") do
     expect(lift_sequence([[],[],[5,1],[],[],[]],10)).to eq ([0,2,5,2,1,0])
   end
@@ -115,25 +115,25 @@ xdescribe("six - queues of multiple people per floor going both up and down") do
 end
 
 describe("seven - over capacity ") do
-  xit("24 - queue of 3 people going dow from same floor, capacity 2") do
+  it("24 - queue of 3 people going dow from same floor, capacity 2") do
     expect(lift_sequence([[],[],[],[],[],[4,3,2]],2)).to eq ([0,5,4,3,5,2,0])
   end
-  xit("25 - queue of 4 people going dow from same floor, capacity 2") do
+  it("25 - queue of 4 people going dow from same floor, capacity 2") do
     expect(lift_sequence([[],[],[],[],[],[4,3,2,1]],2)).to eq ([0,5,4,3,5,2,1,0])
   end
-  xit("26 - queue of 4 people going up and down from same floor, capacity 2") do
+  it("26 - queue of 4 people going up and down from same floor, capacity 2") do
     expect(lift_sequence([[],[],[],[4,4,5,2],[],[]],2)).to eq ([0,3,4,3,2,3,5,0])
   end
-  xit("27 - queue of 10 people going up and down from 2 floors, capacity 3") do
+  it("27 - queue of 10 people going up and down from 2 floors, capacity 3") do
     expect(lift_sequence([[],[],[0,1,6,1,5],[],[5,3,5,6,0],[],[]],3)).to eq ([0,2,4,5,6,4,3,2,1,0,4,5,6,2,1,0])
   end
   it("28 - large queue, capacity 1")do
     expect(lift_sequence([[],[2,3,4,5,6,7,8,9],[],[],[],[],[],[],[],[]],1)).to eq([0,1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9,0])
   end
-  xit("29 - late tests YOYO")do
+  it("29 - late tests YOYO")do
     expect(lift_sequence([[], [], [4, 4, 4, 4], [], [2, 2, 2, 2], [], []],2)).to eq ([0,2,4,2,4,2,0])
   end
-  xit("30 - late tests YOYO with floor skip")do
+  it("30 - late tests YOYO with floor skip")do
     expect(lift_sequence([[], [], [4, 4, 4, 4], [1], [2, 2, 2, 2], [], []],2)).to eq ([0,2,4,3,2,4,3,2,3,1,0])
   end
 
